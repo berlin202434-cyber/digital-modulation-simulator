@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Modulation Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div class="eyebrow">COMMUNICATION SYSTEMS LAB</div>
+      <h1>Digital Modulation Simulator</h1>
+      <p>Explore how binary data is transmitted using ASK, FSK and BPSK.</p>
+    </header>
+
+    <section class="panel controls">
+      <label for="bits">Binary input</label>
+      <input id="bits" type="text" value="101101" maxlength="64"
+             autocomplete="off" spellcheck="false" aria-describedby="inputHelp">
+      <small id="inputHelp">Enter up to 64 bits using only 0 and 1.</small>
+
+      <label for="modulation">Modulation technique</label>
+      <select id="modulation">
+        <option value="ASK">ASK — Amplitude Shift Keying</option>
+        <option value="FSK">FSK — Frequency Shift Keying</option>
+        <option value="BPSK">BPSK — Binary Phase Shift Keying</option>
+      </select>
+
+      <button id="simulate">Simulate signal</button>
+      <p id="error" class="error" role="alert"></p>
+    </section>
+
+    <section class="summary-grid">
+      <article class="metric"><span>Original bits</span><strong id="original">101101</strong></article>
+      <article class="metric"><span>Recovered bits</span><strong id="recovered">101101</strong></article>
+      <article class="metric"><span>Bit errors</span><strong id="errors">0</strong></article>
+      <article class="metric"><span>Bit error rate</span><strong id="ber">0.00%</strong></article>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div><div class="eyebrow">TRANSMITTER</div><h2>Modulated waveform</h2></div>
+        <span id="techBadge" class="badge">ASK</span>
+      </div>
+      <p id="description" class="muted">Bit 1: carrier present · Bit 0: zero amplitude</p>
+      <div class="chart-wrap"><canvas id="waveform" aria-label="Modulated signal waveform"></canvas></div>
+      <div id="bitLabels" class="bit-labels"></div>
+      <p class="chart-note">Horizontal axis: time / sample index · Vertical axis: normalized amplitude</p>
+    </section>
+
+    <section class="panel">
+      <div class="eyebrow">RECEIVER</div>
+      <h2>Demodulation result</h2>
+      <p class="muted">The receiver estimates each bit from the generated samples using correlation.</p>
+      <div id="comparison" class="comparison"></div>
+      <div id="status" class="status success">Data recovered correctly.</div>
+    </section>
+
+    <section class="panel">
+      <div class="eyebrow">QUICK GUIDE</div>
+      <h2>How each technique encodes bits</h2>
+      <div class="guide-grid">
+        <article><h3>ASK</h3><p>Bit 1 uses a carrier; bit 0 uses zero amplitude.</p></article>
+        <article><h3>FSK</h3><p>Bit 1 uses a higher frequency; bit 0 uses a lower frequency.</p></article>
+        <article><h3>BPSK</h3><p>Bit 1 uses 0° phase; bit 0 uses 180° phase.</p></article>
+      </div>
+    </section>
+    <footer>Ideal, noise-free educational simulation · No external libraries required</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
